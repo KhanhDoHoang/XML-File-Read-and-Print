@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Task 2 of Assignment 2 - JavaScript and JSON</title>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      function convertXMLtoJSON() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            myFunction(this);
+          }
+        };
+        xhttp.open("GET", "Books.xml", true);
+        xhttp.send();
+
+        function myFunction(xml) {
+          var xmlDoc = xml.responseXML;
+          var x, y;
+          var txt = "";
+          //var Book_List = xml.getElementsByTagName("book");
+          y = xmlDoc.getElementsByTagName("book");
+          for (var i = 0; i < y.length; i++) {
+            txt += "<h3>Book (" + i + ")</h3>";
+            x = y[i].getElementsByTagName("author")[0].childNodes[0];
+            txt += "Author: " + x.nodeValue + "<br>";
+            x = y[i].getElementsByTagName("title")[0].childNodes[0];
+            txt += "Title: " + x.nodeValue + "<br>";
+            x = y[i].getElementsByTagName("genre")[0].childNodes[0];
+            txt += "Genre: " + x.nodeValue + "<br>";
+            x = y[i].getElementsByTagName("price")[0].childNodes[0];
+            txt += "Price: " + x.nodeValue + "<br>";
+            x = y[i].getElementsByTagName("publish_date")[0].childNodes[0];
+            txt += "Publish Date: " + x.nodeValue + "<br>";
+            x = y[i].getElementsByTagName("description")[0].childNodes[0];
+            txt += "Description: " + x.nodeValue + "<br>";
+            document.getElementById("demo").innerHTML = txt;
+          }
+        }
+        var demo = document.getElementById("demo");
+        panel.style.display = panel.style.display == "none" ? "block" : "none";
+      }
+      //Write code to create an array of JSON objects equivalent to the provided XML file (Each book info is an instance of a JSON object).
+
+      //Write Javascript loop statement to display the elements of the array of JSON objects
+      // End function
+
+      //function toggle(ele) {}
+    </script>
+  </head>
+
+  <body>
+    <h3>Task 2 of Assignment 2- Displaying Array of JSON objects</h3>
+
+    <table>
+      <tr>
+        <td>
+          <input
+            onclick="convertXMLtoJSON()"
+            name="btnConvertJSON"
+            id="btnConvertJSON"
+            value="JSONDisplay!"
+            type="button"
+          />
+        </td>
+      </tr>
+    </table>
+    <p id="demo"></p>
+  </body>
+</html>
